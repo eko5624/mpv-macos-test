@@ -50,10 +50,10 @@ jobs:
           export PKG_CONFIG_PATH="/usr/local/opt/luajit-openresty/lib/pkgconfig/:$PKG_CONFIG_PATH"
           export PKG_CONFIG_PATH="/usr/local/opt/libarchive/lib/pkgconfig/:$PKG_CONFIG_PATH"
           ./bootstrap.py
-          ./waf configure
+          ./waf configure --swift-flags="-target arm64-apple-macos11"
           ./waf
         env:
-          CFLAGS: -mmacosx-version-min=10.8
+          CFLAGS: "-mmacosx-version-min=11 -target arm64-apple-macos11"
 
       - name: Bundle mpv
         run: TOOLS/osxbundle.py build/mpv
