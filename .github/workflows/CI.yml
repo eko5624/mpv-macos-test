@@ -12,12 +12,15 @@ jobs:
       - name: Checkout mpv-player/mpv
         uses: eko5624/checkout@v2
         with:
-          repository: "deus0ww/homebrew-tap"
+          repository: "mpv-player/mpv"
           fetch-depth: 0
+
+      - name: Get mpv-player/mpv last version
+        id: version
+        run: echo "::set-output name=version::$(sh version.sh)"
 
       - name: Build mpv
         run: |
-          brew update && brew upgrade
           brew tap deus0ww/tap
           brew install --HEAD deus0ww/tap/mpv
 
