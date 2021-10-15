@@ -31,19 +31,6 @@ jobs:
         if: endsWith(steps.last_build.outputs.tag, steps.version.outputs.version)
         run: exit 1
 
-      - name: Install dependencies
-        run: |
-          brew update && brew upgrade
-          brew install little-cms2
-          brew install zlib 
-          brew install libass --HEAD
-          brew install luajit-openresty
-          brew install libarchive       
-          brew install libjpeg
-          brew install libcaca
-          brew install uchardet 
-          brew install ffmpeg --HEAD
-
       - name: Build mpv
         run: |
           brew update && brew upgrade
