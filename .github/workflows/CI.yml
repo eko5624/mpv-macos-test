@@ -22,7 +22,7 @@ jobs:
       - name: Build mpv
         run: |
           brew tap deus0ww/tap
-          brew install --HEAD deus0ww/tap/mpv
+          brew install --HEAD -v deus0ww/tap/mpv
 
       - name: Get mpv-player/mpv last commit SHA
         id: sha
@@ -41,6 +41,6 @@ jobs:
           tag_name: mpv-${{ steps.version.outputs.version }}
           name: ${{ steps.timestamp.outputs.date }}
           body: Bump to mpv-player/mpv@${{ steps.sha.outputs.sha }}
-          files: build/mpv-${{ steps.version.outputs.version }}.zip
+          files: mpv-${{ steps.version.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
