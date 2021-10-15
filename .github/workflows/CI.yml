@@ -30,7 +30,6 @@ jobs:
 
       - name: zip bundle
         run: zip -r mpv-${{ steps.version.outputs.version }}.zip /usr/local/Cellar/mpv
-        working-directory: build
 
       - name: Get current timestamp
         id: timestamp
