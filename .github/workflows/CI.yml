@@ -12,7 +12,7 @@ jobs:
       - name: Checkout mpv-player/mpv
         uses: eko5624/checkout@v2
         with:
-          repository: "mpv-player/mpv"
+          repository: "deus0ww/homebrew-tap"
           fetch-depth: 0
 
       - name: Get mpv-player/mpv last version
@@ -46,17 +46,9 @@ jobs:
 
       - name: Build mpv
         run: |
-          export PKG_CONFIG_PATH="/usr/local/opt/zlib/lib/pkgconfig/:$PKG_CONFIG_PATH"
-          export PKG_CONFIG_PATH="/usr/local/opt/luajit-openresty/lib/pkgconfig/:$PKG_CONFIG_PATH"
-          export PKG_CONFIG_PATH="/usr/local/opt/libarchive/lib/pkgconfig/:$PKG_CONFIG_PATH"
-          ./bootstrap.py
-          ./waf configure --swift-flags="-target arm64-apple-macos11"
-          ./waf
-        env:
-          CFLAGS: -mmacosx-version-min=11 
-
-      - name: Bundle mpv
-        run: TOOLS/osxbundle.py build/mpv
+          brew update && brew upgrade
+          brew tap deus0ww/tap
+          brew install --HEAD deus0ww/tap/mpv
 
       - name: Get mpv-player/mpv last commit SHA
         id: sha
