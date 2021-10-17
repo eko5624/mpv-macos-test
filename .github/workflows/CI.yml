@@ -24,12 +24,14 @@ jobs:
           brew tap deus0ww/tap
           brew install --HEAD -v deus0ww/tap/mpv
 
-      - name: Get mpv-player/mpv last commit SHA
-        id: sha
-        run: echo "::set-output name=sha::$(git log -n1 --format="%h")"
+      - name: Get mpv latest commit sha
+        id: get_sha
+        uses: mego22/actions-git-sha@main
+        with:
+          repo: "https://github.com/mpv-player/mpv.git"
 
       - name: zip bundle
-        run: zip -r mpv-${{ steps.version.outputs.version }}.zip /usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}/mpv.app
+        run: zip -r mpv-${{ steps.version.outputs.version }}.zip /usr/local/Cellar/mpv/HEAD-${{ steps.get_sha.outputs.sha }}/mpv.app
 
       - name: Get current timestamp
         id: timestamp
@@ -40,7 +42,7 @@ jobs:
         with:
           tag_name: mpv-${{ steps.version.outputs.version }}
           name: ${{ steps.timestamp.outputs.date }}
-          body: Bump to mpv-player/mpv@${{ steps.sha.outputs.sha }}
+          body: Bump to mpv-player/mpv@${{ steps.get_sha.outputs.sha }}
           files: mpv-${{ steps.version.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
