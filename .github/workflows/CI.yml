@@ -27,8 +27,6 @@ jobs:
       - name: Get mpv latest commit sha
         id: sha
         run: echo "::set-output name=sha::$(git log -n1 --format="%h")"
-        with:
-          repo: "https://github.com/mpv-player/mpv.git"
 
       - name: zip bundle
         run: zip -r mpv-${{ steps.version.outputs.version }}.zip /usr/local/Cellar/mpv
