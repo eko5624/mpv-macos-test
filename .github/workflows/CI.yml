@@ -29,7 +29,8 @@ jobs:
         run: echo "::set-output name=sha::$(git log -n1 --format="%h")"
 
       - name: zip bundle
-        run: zip -r mpv-${{ steps.version.outputs.version }}.zip /usr/local/Cellar/mpv
+        run: zip -r mpv-${{ steps.version.outputs.version }}.zip mpv.app
+        working-directory: ./usr/local/Cellar/mpv/HEAD-{{ steps.sha.outputs.sha }}
 
       - name: Get current timestamp
         id: timestamp
