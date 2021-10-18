@@ -24,7 +24,7 @@ jobs:
           brew tap deus0ww/tap
           brew install --HEAD -v deus0ww/tap/mpv
 
-      - name: Get mpv latest commit sha
+      - name: Get mpv-player/mpv last commit SHA
         id: sha
         run: echo "::set-output name=sha::$(git log -n1 --format="%h")"
 
