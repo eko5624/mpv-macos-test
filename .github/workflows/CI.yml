@@ -40,7 +40,7 @@ jobs:
         with:
           tag_name: mpv-${{ steps.version.outputs.version }}
           name: ${{ steps.timestamp.outputs.date }}
-          body: Bump to mpv-player/mpv@${{ steps.get_sha.outputs.sha }}
+          body: Bump to mpv-player/mpv@${{ steps.sha.outputs.sha }}
           files: mpv-${{ steps.version.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
