@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-11
     steps:
       - name: Checkout mpv-player/mpv
         uses: eko5624/checkout@v2
@@ -25,12 +25,13 @@ jobs:
 
       - name: Build mpv
         run: |
+          sudo xcode-select -s "/Applications/Xcode_12.5.1.app"
           brew tap deus0ww/tap
           brew install --HEAD -v deus0ww/tap/mpv
 
 
       - name: zip bundle
-        run: zip -r mpv-${{ steps.version.outputs.version }}.zip usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}
+        run: zip -r mpv-${{ steps.version.outputs.version }}.zip /usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}/mpv.app
 
       - name: Get current timestamp
         id: timestamp
