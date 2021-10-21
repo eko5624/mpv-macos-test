@@ -21,10 +21,10 @@ jobs:
 
       - name: Get mpv-player/mpv last commit SHA
         id: sha
-        run: echo "::set-output name=sha::$(git log -n1 --format="%h")"
+        run: echo "::set-output name=sha::$(git rev-parse --short=7 HEAD)"
 
       - name: zip bundle
-        run: zip -r mpv-${{ steps.version.outputs.version }}.zip usr/local/Cellar/mpv
+        run: zip -r mpv-${{ steps.version.outputs.version }}.zip usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}
 
       - name: Get current timestamp
         id: timestamp
