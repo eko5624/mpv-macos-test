@@ -10,6 +10,12 @@ jobs:
     runs-on: macos-latest
     steps:
 
+      - name: Checkout mpv-player/mpv
+        uses: eko5624/checkout@v2
+        with:
+          repository: "mpv-player/mpv"
+          fetch-depth: 0
+
       - name: Get mpv-player/mpv last version
         id: version
         run: echo "::set-output name=version::$(sh version.sh)"
