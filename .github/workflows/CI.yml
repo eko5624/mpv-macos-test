@@ -13,15 +13,16 @@ jobs:
       - name: Get mpv-player/mpv last version
         id: version
         run: echo "::set-output name=version::$(sh version.sh)"
+        
+      - name: Get mpv-player/mpv last commit SHA
+        id: sha
+        run: echo "::set-output name=sha::$(git rev-parse --short=7 HEAD)"        
 
       - name: Build mpv
         run: |
           brew tap deus0ww/tap
           brew install --HEAD -v deus0ww/tap/mpv
 
-      - name: Get mpv-player/mpv last commit SHA
-        id: sha
-        run: echo "::set-output name=sha::$(git rev-parse --short=7 HEAD)"
 
       - name: zip bundle
         run: zip -r mpv-${{ steps.version.outputs.version }}.zip usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}
