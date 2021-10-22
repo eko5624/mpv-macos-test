@@ -29,9 +29,19 @@ jobs:
           brew tap deus0ww/tap
           brew install --HEAD -v deus0ww/tap/mpv
 
+      - name: Override Xcode 13.0 if it's the default toolchain
+        run: |
+          XCODE_PATH="$(xcode-select -p)"
+          case "${XCODE_PATH}" in
+            *Xcode_13.0*)
+              sudo xcode-select -s "/Applications/Xcode_13.1.app"
+              echo "Updated Xcode path ${XCODE_PATH} -> $(xcode-select -p)"
+              ;;
+          esac
 
       - name: zip bundle
-        run: zip -r mpv-${{ steps.version.outputs.version }}.zip /usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}/mpv.app
+        run: zip -r mpv-${{ steps.version.outputs.version }}.zip mpv.app
+        working-directory: /usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}
 
       - name: Get current timestamp
         id: timestamp
@@ -43,6 +53,6 @@ jobs:
           tag_name: mpv-${{ steps.version.outputs.version }}
           name: ${{ steps.timestamp.outputs.date }}
           body: Bump to mpv-player/mpv@${{ steps.sha.outputs.sha }}
-          files: mpv-${{ steps.version.outputs.version }}.zip
+          files: /usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}/mpv-${{ steps.version.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
