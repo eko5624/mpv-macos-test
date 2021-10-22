@@ -25,7 +25,7 @@ jobs:
 
       - name: Build mpv
         run: |
-          sudo xcode-select -s "/Applications/Xcode_12.5.1.app"
+          sudo xcode-select -s "/Applications/Xcode_13.1.app"
           brew tap deus0ww/tap
           brew install --HEAD -v deus0ww/tap/mpv
 
