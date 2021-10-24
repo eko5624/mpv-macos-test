@@ -37,7 +37,7 @@ jobs:
         run: brew install aerobounce/mpv-build/mpv
 
       - name: zip bundle
-        run: zip -r mpv-${{ steps.version.outputs.version }}.zip /usr/local/Cellar/mpvl
+        run: zip -r mpv-${{ steps.version.outputs.version }}.zip /usr/local/Cellar/mpv
 
       - name: Get current timestamp
         id: timestamp
