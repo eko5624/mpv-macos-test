@@ -34,9 +34,7 @@ jobs:
           esac
 
       - name: Build mpv
-        run: |
-          brew tap deus0ww/tap
-          brew install --HEAD -v deus0ww/tap/mpv
+        run: brew install aerobounce/mpv-build/mpv
 
       - name: zip bundle
         run: zip -r mpv-${{ steps.version.outputs.version }}.zip mpv.app
