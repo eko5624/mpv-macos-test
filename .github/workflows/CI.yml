@@ -32,6 +32,7 @@ jobs:
               echo "Updated Xcode path ${XCODE_PATH} -> $(xcode-select -p)"
               ;;
           esac
+          
       - name: Build mpv
         run: |
           brew tap deus0ww/tap
