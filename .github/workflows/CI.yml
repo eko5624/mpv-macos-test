@@ -23,20 +23,11 @@ jobs:
         id: sha
         run: echo "::set-output name=sha::$(git rev-parse --short=7 HEAD)"        
 
-      - name: Override Xcode 13.0 if it's the default toolchain
-        run: |
-          XCODE_PATH="$(xcode-select -p)"
-          case "${XCODE_PATH}" in
-            *Xcode_13.0*)
-              sudo xcode-select -s "/Applications/Xcode_13.1.app"
-              echo "Updated Xcode path ${XCODE_PATH} -> $(xcode-select -p)"
-              ;;
-          esac
           
       - name: Build mpv
         run: |
           brew tap deus0ww/tap
-          brew install --HEAD -v deus0ww/tap/mpv
+          brew install --HEAD deus0ww/tap/mpv
       - name: zip bundle
         run: zip -r mpv-${{ steps.version.outputs.version }}.zip mpv.app
         working-directory: /usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}
