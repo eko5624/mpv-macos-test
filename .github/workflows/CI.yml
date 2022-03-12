@@ -10,7 +10,7 @@ jobs:
     runs-on: macos-11
     steps:
       - name: Checkout mpv-player/mpv
-        uses: eko5624/checkout@v3
+        uses: actions/checkout@v3
         with:
           repository: "mpv-player/mpv"
           fetch-depth: 0
@@ -30,18 +30,18 @@ jobs:
           brew install --HEAD deus0ww/tap/mpv
       - name: zip bundle
         run: zip -r mpv-${{ steps.version.outputs.version }}.zip mpv.app
-        working-directory: /usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}
+        working-directory: /usr/local/Cellar/mpv/HEAD*
 
       - name: Get current timestamp
         id: timestamp
         run: echo "::set-output name=date::$(date +%Y-%m-%d)"
 
       - name: Create Release
-        uses: eko5624/action-gh-release@v1
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: mpv-${{ steps.version.outputs.version }}
           name: ${{ steps.timestamp.outputs.date }}
           body: Bump to mpv-player/mpv@${{ steps.sha.outputs.sha }}
-          files: /usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}/mpv-${{ steps.version.outputs.version }}.zip
+          files: /usr/local/Cellar/mpv/HEAD*/mpv-${{ steps.version.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
