@@ -26,7 +26,7 @@ jobs:
           
       - name: Build mpv
         run: |
-          brew install aerobounce/mpv-build/mpv-alt
+          brew install aerobounce/mpv-build/mpv-alt --HEAD
       - name: zip bundle
         run: zip -r mpv-${{ steps.version.outputs.version }}.zip mpv.app
         working-directory: /usr/local/Cellar/mpv/HEAD*
