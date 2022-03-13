@@ -26,7 +26,6 @@ jobs:
           
       - name: Build mpv
         run: |
-          brew tap aerobounce/tap
           brew install aerobounce/mpv-build/mpv-alt --HEAD
       - name: zip bundle
         run: zip -r mpv-${{ steps.version.outputs.version }}.zip mpv.app
