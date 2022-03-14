@@ -32,8 +32,7 @@ jobs:
           brew tap deus0ww/tap
           brew install --HEAD deus0ww/tap/mpv
       - name: zip bundle
-        run: zip -r mpv-${{ steps.version.outputs.version }}.zip mpv.app
-        working-directory: /usr/local/Cellar/mpv/HEAD-*
+        run: zip -r mpv-${{ steps.version.outputs.version }}.zip /usr/local/Cellar/mpv/**/mpv.app
 
       - name: Get current timestamp
         id: timestamp
