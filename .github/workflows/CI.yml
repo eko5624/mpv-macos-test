@@ -27,7 +27,6 @@ jobs:
       - name: Build mpv
         run: |
           brew uninstall --ignore-dependencies aom
-          brew uninstall ffmpeg
           brew tap deus0ww/tap
           brew install --HEAD deus0ww/tap/mpv
       - name: zip bundle
