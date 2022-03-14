@@ -26,7 +26,9 @@ jobs:
           
       - name: Build mpv
         run: |
+          brew update-reset
           brew uninstall --ignore-dependencies aom
+          brew cleanup
           brew tap deus0ww/tap
           brew install --HEAD deus0ww/tap/mpv
       - name: zip bundle
