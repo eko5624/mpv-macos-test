@@ -26,10 +26,11 @@ jobs:
           
       - name: Build mpv
         run: |
-          brew install aerobounce/mpv-build/mpv-alt --HEAD
+          brew tap deus0ww/tap
+          brew install --HEAD deus0ww/tap/mpv
       - name: zip bundle
         run: zip -r mpv-${{ steps.version.outputs.version }}.zip mpv.app
-        working-directory: /usr/local/Cellar/mpv-alt/HEAD-*
+        working-directory: /usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}
 
       - name: Get current timestamp
         id: timestamp
@@ -41,6 +42,6 @@ jobs:
           tag_name: mpv-${{ steps.version.outputs.version }}
           name: ${{ steps.timestamp.outputs.date }}
           body: Bump to mpv-player/mpv@${{ steps.sha.outputs.sha }}
-          files: /usr/local/Cellar/mpv-alt/*/mpv-${{ steps.version.outputs.version }}.zip
+          files: /usr/local/Cellar/mpv/HEAD-${{ steps.sha.outputs.sha }}/mpv-${{ steps.version.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
