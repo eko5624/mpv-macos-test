@@ -43,8 +43,10 @@ jobs:
           brew tap deus0ww/tap
           brew install --HEAD deus0ww/tap/mpv
       - name: zip bundle
-        run: zip -r mpv-${{ steps.get_sha.outputs.sha }}.zip mpv.app
-        working-directory: /usr/local/Cellar/mpv/HEAD-*
+        run: |
+          cd /usr/local/Cellar/mpv/HEAD*
+          zip -r mpv-${{ steps.get_sha.outputs.sha }}.zip mpv.app
+          
       - name: Get current timestamp
         id: timestamp
         run: echo "::set-output name=date::$(date +%Y-%m-%d)"
@@ -55,6 +57,6 @@ jobs:
           tag_name: mpv-${{ steps.get_sha.outputs.sha }}
           name: ${{ steps.timestamp.outputs.date }}
           body: Bump to mpv-player/mpv@${{ steps.get_sha.outputs.sha }}
-          files: mpv*.zip
+          files: /usr/local/Cellar/mpv/**/mpv*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
