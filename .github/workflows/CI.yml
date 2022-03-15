@@ -9,20 +9,31 @@ jobs:
   build:
     runs-on: macos-11
     steps:
-      - name: Checkout mpv-player/mpv
-        uses: actions/checkout@v3
-        with:
-          repository: "mpv-player/mpv"
-          fetch-depth: 0
+      #- name: Checkout mpv-player/mpv
+      #  uses: actions/checkout@v3
+      #  with:
+      #    repository: "mpv-player/mpv"
+      #    fetch-depth: 0
 
-      - name: Get mpv-player/mpv last version
-        id: version
-        run: echo "::set-output name=version::$(sh version.sh)"
+      #- name: Get mpv-player/mpv last version
+      #  id: version
+      #  run: echo "::set-output name=version::$(sh version.sh)"
         
-      - name: Get mpv-player/mpv last commit SHA
-        id: sha
-        run: echo "::set-output name=sha::$(git rev-parse --short=7 HEAD)"        
-
+      #- name: Get mpv-player/mpv last commit SHA
+      #  id: sha
+      #  run: echo "::set-output name=sha::$(git rev-parse --short=7 HEAD)"    
+        
+      - name: 'Get mpv latest commit sha'
+        id: get_sha
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const commit = await github.rest.repos.getCommit({
+              owner: 'mpv-player',
+              repo: 'mpv',
+              ref: `master`
+            })
+            core.setOutput('sha', String(commit.data.sha))        
           
       - name: Build mpv
         run: |
@@ -32,8 +43,8 @@ jobs:
           brew tap deus0ww/tap
           brew install --HEAD deus0ww/tap/mpv
       - name: zip bundle
-        run: zip -r mpv-${{ steps.version.outputs.version }}.zip /usr/local/Cellar/mpv/**/mpv.app
-
+        run: zip -r mpv-${{ steps.get_sha.outputs.sha }}.zip mpv.app
+        working-directory: /usr/local/Cellar/mpv/HEAD-*
       - name: Get current timestamp
         id: timestamp
         run: echo "::set-output name=date::$(date +%Y-%m-%d)"
@@ -41,9 +52,9 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: mpv-${{ steps.version.outputs.version }}
+          tag_name: mpv-${{ steps.get_sha.outputs.sha }}
           name: ${{ steps.timestamp.outputs.date }}
-          body: Bump to mpv-player/mpv@${{ steps.sha.outputs.sha }}
+          body: Bump to mpv-player/mpv@${{ steps.get_sha.outputs.sha }}
           files: mpv*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
