@@ -44,6 +44,6 @@ jobs:
           tag_name: mpv-${{ steps.version.outputs.version }}
           name: ${{ steps.timestamp.outputs.date }}
           body: Bump to mpv-player/mpv@${{ steps.sha.outputs.sha }}
-          files: /usr/local/Cellar/mpv/HEAD-*/mpv-${{ steps.version.outputs.version }}.zip
+          files: /usr/local/Cellar/mpv/HEAD-@${{ steps.sha.outputs.sha }}/mpv-${{ steps.version.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
