@@ -46,7 +46,7 @@ jobs:
           brew update-reset
           brew uninstall --ignore-dependencies aom
           brew tap eko5624/tap
-          brew install --HEAD eko5624/tap/mpv
+          brew install --HEAD deus0ww/tap/mpv
       - name: zip bundle
         run: |
           cd /usr/local/Cellar/mpv/HEAD*
