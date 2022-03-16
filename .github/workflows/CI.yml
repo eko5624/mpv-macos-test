@@ -23,7 +23,7 @@ jobs:
       #  id: sha
       #  run: echo "::set-output name=sha::$(git rev-parse --short=7 HEAD)"    
         
-      - name: 'Get mpv latest commit sha'
+      - name: Get mpv latest commit sha
         id: get_sha
         uses: actions/github-script@v6
         with:
@@ -33,7 +33,10 @@ jobs:
               repo: 'mpv',
               ref: `master`
             })
-            core.setOutput('sha', String(commit.data.sha))        
+            core.setOutput('sha', String(commit.data.sha)) 
+            
+      - name: Add SHORT_SHA env 
+        run: echo "SHORT_SHA=`echo ${{ steps.get_sha.outputs.sha }}| cut -c1-7`" >> $GITHUB_ENV             
           
       - name: Build mpv
         run: |
@@ -45,7 +48,7 @@ jobs:
       - name: zip bundle
         run: |
           cd /usr/local/Cellar/mpv/HEAD*
-          zip -r mpv-${{ steps.get_sha.outputs.sha }}.zip mpv.app
+          zip -r mpv-${{ env.SHORT_SHA }}.zip mpv.app
           
       - name: Get current timestamp
         id: timestamp
@@ -54,9 +57,9 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: mpv-${{ steps.get_sha.outputs.sha }}
+          tag_name: mpv-${{ env.SHORT_SHA }}
           name: ${{ steps.timestamp.outputs.date }}
-          body: Bump to mpv-player/mpv@${{ steps.get_sha.outputs.sha }}
+          body: Bump to mpv-player/mpv@${{ env.SHORT_SHA }}
           files: /usr/local/Cellar/mpv/**/mpv*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
