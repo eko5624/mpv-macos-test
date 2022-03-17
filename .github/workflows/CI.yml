@@ -49,7 +49,7 @@ jobs:
           brew install --HEAD eko5624/tap/libass 
           brew install --HEAD eko5624/tap/ffmpeg
           brew install --HEAD eko5624/tap/yt-dlp
-          brew install --HEAD eko5624/tap/mpv
+          brew install --HEAD -v eko5624/tap/mpv
       - name: zip bundle
         run: |
           cd /usr/local/Cellar/mpv/HEAD*
