@@ -45,7 +45,7 @@ jobs:
         run: |
           brew update-reset
           brew uninstall --ignore-dependencies aom
-          brew tap deus0ww/tap
+          brew tap eko5624/tap
           brew install --HEAD eko5624/tap/libass 
           brew install --HEAD eko5624/tap/ffmpeg
           brew install --HEAD eko5624/tap/yt-dlp
