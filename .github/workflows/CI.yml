@@ -45,10 +45,10 @@ jobs:
         run: |
           brew update-reset
           brew uninstall --ignore-dependencies aom
-          brew tap eko5624/tap
-          brew install --HEAD eko5624/tap/libass 
-          brew install --HEAD eko5624/tap/ffmpeg
-          brew install --HEAD eko5624/tap/yt-dlp
+          brew tap deus0ww/tap
+          brew install --HEAD deus0ww/tap/libass 
+          brew install deus0ww/tap/ffmpeg
+          brew install --HEAD deus0ww/tap/yt-dlp
           brew install --HEAD -v eko5624/tap/mpv
       - name: zip bundle
         run: |
