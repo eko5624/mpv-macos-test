@@ -47,7 +47,7 @@ jobs:
           brew uninstall --ignore-dependencies aom
           brew tap eko5624/tap
           brew install --HEAD eko5624/tap/libass 
-          brew install eko5624/tap/ffmpeg
+          brew install --HEAD eko5624/tap/ffmpeg
           brew install --HEAD eko5624/tap/yt-dlp
           brew install --HEAD -v eko5624/tap/mpv
       - name: zip bundle
