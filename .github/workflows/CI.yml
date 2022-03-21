@@ -43,7 +43,7 @@ jobs:
           
       - name: Build mpv
         run: |
-          brew update-reset
+          brew update
           brew uninstall --ignore-dependencies aom
           brew install --HEAD deus0ww/tap/libass 
           brew install --HEAD -v deus0ww/tap/ffmpeg
