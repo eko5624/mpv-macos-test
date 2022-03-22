@@ -42,11 +42,7 @@ jobs:
         run: echo "SHORT_SHA=`echo ${{ steps.get_sha.outputs.sha }}| cut -c1-7`" >> $GITHUB_ENV             
           
       - name: Build mpv
-        run: |
-          brew update-reset
-          brew update-reset
-          brew uninstall --ignore-dependencies aom
-          brew cleanup         
+        run: |        
           brew tap deus0ww/tap 
           brew install --HEAD -v deus0ww/tap/mpv
       - name: zip bundle
