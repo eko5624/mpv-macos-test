@@ -47,7 +47,7 @@ jobs:
           brew update-reset
           brew uninstall --ignore-dependencies aom
           brew cleanup
-          brew tap deus0ww/tap
+          rm -rf /usr/local/var/homebrew/locks         
           brew install --HEAD deus0ww/tap/libass 
           brew install --HEAD deus0ww/tap/ffmpeg
           brew install --HEAD deus0ww/tap/yt-dlp
