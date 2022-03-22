@@ -9,6 +9,7 @@ jobs:
   build:
     runs-on: macos-11
     env:
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
       HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
     steps:
       #- name: Checkout mpv-player/mpv
@@ -42,11 +43,13 @@ jobs:
           
       - name: Build mpv
         run: |
-          brew update && brew upgrade
+          brew update-reset
+          brew update-reset
           brew uninstall --ignore-dependencies aom
           brew cleanup
+          brew tap deus0ww/tap
           brew install --HEAD deus0ww/tap/libass 
-          brew install --HEAD -v deus0ww/tap/ffmpeg
+          brew install --HEAD deus0ww/tap/ffmpeg
           brew install --HEAD deus0ww/tap/yt-dlp
           brew install --HEAD -v deus0ww/tap/mpv
       - name: zip bundle
