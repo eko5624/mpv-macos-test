@@ -42,8 +42,9 @@ jobs:
           
       - name: Build mpv
         run: |
-          brew update 
-          #brew uninstall --ignore-dependencies aom
+          brew update && brew upgrade
+          brew uninstall --ignore-dependencies aom
+          sudo chown -R "$USER":admin /usr/local
           brew cleanup
           brew install --HEAD deus0ww/tap/libass 
           brew install --HEAD -v deus0ww/tap/ffmpeg
