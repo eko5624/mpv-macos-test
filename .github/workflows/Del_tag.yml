@@ -12,7 +12,7 @@ jobs:
     - uses: dev-drprasad/delete-tag-and-release@v0.2.0
       with:
         delete_release: true 
-        tag_name: mpv*
+        tag_name: mpv-fcc81cd 
         repo: eko5624/mpv-macos-test
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
