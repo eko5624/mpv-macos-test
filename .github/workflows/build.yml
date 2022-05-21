@@ -45,6 +45,7 @@ jobs:
         run: |        
           brew uninstall --ignore-dependencies aom
           brew tap eko5624/tap 
+          brew install --HEAD -v eko5624/tap/ffmpeg
           brew install --HEAD -v eko5624/tap/mpv
       - name: zip bundle
         run: |
