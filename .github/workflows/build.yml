@@ -45,6 +45,7 @@ jobs:
         run: |        
           brew update
           brew tap deus0ww/tap 
+          brew install --HEAD -v deus0ww/tap/ffmpeg
           brew install --HEAD -v deus0ww/tap/mpv
       - name: zip bundle
         run: |
