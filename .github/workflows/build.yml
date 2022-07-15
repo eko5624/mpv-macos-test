@@ -44,7 +44,7 @@ jobs:
       - name: Build mpv
         run: |        
           brew update 
-          brew uninstall aom
+          brew uninstall --ignore-dependencies aom
           brew uninstall mpv 
           brew install --HEAD -v deus0ww/tap/jpeg-xl
           brew install --HEAD -v deus0ww/tap/ffmpeg
