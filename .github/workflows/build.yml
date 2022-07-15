@@ -50,21 +50,24 @@ jobs:
           brew install -v deus0ww/tap/jpeg-xl --HEAD 
           brew install -v deus0ww/tap/ffmpeg --HEAD  
           brew install -v deus0ww/tap/mpv --HEAD 
-      - name: zip bundle
-        run: |
-          cd /usr/local/Cellar/mpv/HEAD*
-          zip -r mpv-${{ env.SHORT_SHA }}.zip mpv.app 
-          
+      
       - name: Get current timestamp
         id: timestamp
-        run: echo "::set-output name=date::$(date +%Y-%m-%d)"
+        run: echo "::set-output name=date::$(date +%Y-%m-%d)"      
+      
+      - name: zip bundle
+        run: |
+          mkdir All-in-One
+          mv /usr/local/Cellar/mpv/HEAD*/mpv.app All-in-One  
+          mv /private/tmp/mpv*/TOOLS/dylib-unhell.py All-in-One
+          zip -r All-in-One-${{ steps.timestamp.outputs.date }}.zip All-in-One 
 
-      - name: Create Release
+      - name: Create Release      
         uses: softprops/action-gh-release@v1
         with:
           tag_name: mpv-${{ env.SHORT_SHA }}
           name: ${{ steps.timestamp.outputs.date }}
           body: Bump to mpv-player/mpv@${{ env.SHORT_SHA }}
-          files: /usr/local/Cellar/mpv/**/mpv*.zip
+          files: All*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
