@@ -59,7 +59,7 @@ jobs:
         run: |
           mkdir All-in-One
           mv /usr/local/Cellar/mpv/HEAD*/mpv.app All-in-One  
-          mv /private/tmp/mpv*/TOOLS/dylib-unhell.py All-in-One
+          cp /Users/runner/Library/Caches/Homebrew/mpv--git/TOOLS/dylib-unhell.py All-in-One
           zip -r All-in-One-${{ steps.timestamp.outputs.date }}.zip All-in-One 
 
       - name: Create Release      
