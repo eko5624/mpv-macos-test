@@ -45,7 +45,7 @@ jobs:
         run: |        
           brew update 
           brew uninstall --ignore-dependencies aom
-          brew uninstall jpeg-xl 
+          brew uninstall --ignore-dependencies jpeg-xl 
           brew tap deus0ww/tap
           brew install -v deus0ww/tap/jpeg-xl --HEAD 
           brew install -v deus0ww/tap/ffmpeg --HEAD  
