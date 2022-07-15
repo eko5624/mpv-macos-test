@@ -46,9 +46,7 @@ jobs:
           brew update
           brew uninstall ffmpeg 
           brew uninstall aom
-          brew uninstall mpv
-          brew tap deus0ww/tap 
-          brew unlink jpeg-xl
+          brew uninstall mpv 
           brew install --HEAD -v deus0ww/tap/jpeg-xl
           brew install --HEAD -v deus0ww/tap/ffmpeg
           brew install --HEAD -v deus0ww/tap/mpv
