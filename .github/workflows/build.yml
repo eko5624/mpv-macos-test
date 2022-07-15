@@ -46,7 +46,7 @@ jobs:
           brew update 
           brew uninstall --ignore-dependencies aom
           brew install -v deus0ww/tap/jpeg-xl --HEAD 
-          brew install -v deus0ww/tap/ffmpeg
+          brew install -v deus0ww/tap/ffmpeg --HEAD
           brew install -v deus0ww/tap/mpv --HEAD 
       - name: zip bundle
         run: |
