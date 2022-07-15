@@ -46,10 +46,10 @@ jobs:
           brew update 
           brew uninstall --ignore-dependencies aom
           brew uninstall --ignore-dependencies jpeg-xl 
-          brew tap deus0ww/tap
-          brew install -v deus0ww/tap/jpeg-xl --HEAD 
-          brew install -v deus0ww/tap/ffmpeg --HEAD  
-          brew install -v deus0ww/tap/mpv --HEAD 
+          brew tap eko5624/tap
+          brew install -v eko5624/tap/jpeg-xl --HEAD 
+          brew install -v eko5624/tap/ffmpeg --HEAD  
+          brew install -v eko5624/tap/mpv --HEAD 
       
       - name: Get current timestamp
         id: timestamp
@@ -59,7 +59,7 @@ jobs:
         run: |
           mkdir All-in-One
           mv /usr/local/Cellar/mpv/HEAD*/mpv.app All-in-One  
-          cp /private/tmp/mpv*/TOOLS/dylib-unhell.py All-in-One
+          cp /Users/runner/Library/Caches/Homebrew/mpv--git/dylib-unhell.py All-in-One
           zip -r All-in-One-${{ steps.timestamp.outputs.date }}.zip All-in-One 
 
       - name: Create Release      
