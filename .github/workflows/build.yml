@@ -67,9 +67,9 @@ jobs:
       - name: Create Release      
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: mpv-${{ steps.version.outputs.version }}
+          tag_name: mpv-${{ env.SHORT_SHA }}
           name: ${{ steps.timestamp.outputs.date }}
-          body: Bump to mpv-player/mpv@${{ steps.sha.outputs.sha }}
+          body: Bump to mpv-player/mpv@${{ env.SHORT_SHA }}
           files: All*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
