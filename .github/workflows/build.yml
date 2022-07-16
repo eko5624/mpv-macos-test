@@ -58,8 +58,10 @@ jobs:
       - name: zip bundle
         run: |
           mkdir All-in-One
+          curl -OL https://github.com/eko5624/mpv-config/archive/refs/heads/main.zip
+          unzip main.zip
+          mv mpv-config-main/macos_config All-in-One          
           mv /usr/local/Cellar/mpv/HEAD*/mpv.app All-in-One  
-          cp /private/tmp/mpv*/TOOLS/dylib-unhell.py All-in-One
           zip -r All-in-One-${{ steps.timestamp.outputs.date }}.zip All-in-One 
 
       - name: Create Release      
