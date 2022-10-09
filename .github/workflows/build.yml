@@ -31,7 +31,7 @@ jobs:
         run: |        
           brew update 
           brew uninstall highway
-          brew uninstall --ignore-dependencies jpeg-xl
+          brew uninstall jpeg-xl
           brew uninstall --ignore-dependencies aom
           brew install -v deus0ww/tap/jpeg-xl --HEAD
           brew link --overwrite jpeg-xl
