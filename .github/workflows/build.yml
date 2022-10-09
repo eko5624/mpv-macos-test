@@ -34,7 +34,6 @@ jobs:
           brew uninstall --ignore-dependencies jpeg-xl
           brew uninstall --ignore-dependencies aom
           brew install -v deus0ww/tap/jpeg-xl --HEAD
-          brew link --overwrite jpeg-xl
           brew install -v deus0ww/tap/ffmpeg --HEAD  
           brew install -v deus0ww/tap/mpv --HEAD 
       
