@@ -30,10 +30,10 @@ jobs:
       - name: Build mpv
         run: |        
           brew update 
-          brew uninstall jpeg-xl
-          brew uninstall aom          
-          brew tap deus0ww/tap
+          brew uninstall --ignore-dependencies jpeg-xl
+          brew uninstall --ignore-dependencies aom
           brew install -v deus0ww/tap/jpeg-xl --HEAD
+          brew link --overwrite --dry-run jpeg-xl
           brew install -v deus0ww/tap/ffmpeg --HEAD  
           brew install -v deus0ww/tap/mpv --HEAD 
       
