@@ -11,21 +11,7 @@ jobs:
     env:
       HOMEBREW_NO_INSTALL_CLEANUP: 1
       HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK: 1
-    steps:
-      #- name: Checkout mpv-player/mpv
-      #  uses: actions/checkout@v3
-      #  with:
-      #    repository: "mpv-player/mpv"
-      #    fetch-depth: 0
-
-      #- name: Get mpv-player/mpv last version
-      #  id: version
-      #  run: echo "::set-output name=version::$(sh version.sh)"
-        
-      #- name: Get mpv-player/mpv last commit SHA
-      #  id: sha
-      #  run: echo "::set-output name=sha::$(git rev-parse --short=7 HEAD)"    
-        
+    steps:         
       - name: Get mpv latest commit sha
         id: get_sha
         uses: actions/github-script@v6
