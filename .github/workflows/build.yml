@@ -38,16 +38,19 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           
+      - name: Install dependencies
+        run: |        
+          brew update
+          brew install Java meson ninja python
+
       - name: fix java include does not exist
         run: |
-
           sudo ln -s $JAVA_HOME/include /Library/Java/JavaVirtualMachines/Current/Contents/Home/include
           sudo ln -s $JAVA_HOME/include/darwin /Library/Java/JavaVirtualMachines/Current/Contents/Home/include/darwin
           sudo ln -s $JAVA_HOME/lib /Library/Java/JavaVirtualMachines/Current/Contents/Home/lib
+
       - name: Build mpv
-        run: |        
-          brew update
-          brew install Java meson ninja python 
+        run: |
           brew install -v deus0ww/tap/libplacebo --HEAD
           brew install -v deus0ww/tap/ffmpeg --HEAD
           brew install -v deus0ww/tap/mpv --HEAD
