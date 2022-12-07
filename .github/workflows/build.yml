@@ -40,10 +40,10 @@ jobs:
           
       - name: fix java include does not exist
         run: |
-          java=$(/usr/libexec/java_home)
-          ln -s $java/include /Library/Java/JavaVirtualMachines/Current/Contents/Home/include
-          ln -s $java/include/darwin /Library/Java/JavaVirtualMachines/Current/Contents/Home/include/darwin
-          
+
+          ln -s $JAVA_HOME/include /Library/Java/JavaVirtualMachines/Current/Contents/Home/include
+          ln -s $JAVA_HOME/include/darwin /Library/Java/JavaVirtualMachines/Current/Contents/Home/include/darwin
+          ln -s $JAVA_HOME/lib /Library/Java/JavaVirtualMachines/Current/Contents/Home/lib
       - name: Build mpv
         run: |        
           brew update
