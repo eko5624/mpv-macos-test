@@ -36,7 +36,13 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'temurin'          
+          distribution: 'temurin'
+          
+      - name: fix java include does not exist
+        run: |
+          java=$(/usr/libexec/java_home)
+          ln -s $java/include /Library/Java/JavaVirtualMachines/Current/Contents/Home/include
+          ln -s $java/include/darwin /Library/Java/JavaVirtualMachines/Current/Contents/Home/include/darwin
           
       - name: Build mpv
         run: |        
