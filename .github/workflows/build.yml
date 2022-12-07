@@ -22,20 +22,17 @@ jobs:
               repo: 'mpv',
               ref: `master`
             })
-            core.setOutput('sha', String(commit.data.sha)) 
+            core.exportVariable('sha', String(commit.data.sha)) 
             
       - name: Add SHORT_SHA env 
-        run: echo "SHORT_SHA=`echo ${{ steps.get_sha.outputs.sha }}| cut -c1-7`" >> $GITHUB_ENV             
+        run: echo "SHORT_SHA=`echo ${{ env.sha }}| cut -c1-7`" >> $GITHUB_ENV             
           
       - name: Build mpv
         run: |        
-          brew update 
-          brew uninstall --ignore-dependencies highway
-          brew uninstall --ignore-dependencies jpeg-xl
-          brew uninstall --ignore-dependencies aom
-          brew install -v deus0ww/tap/jpeg-xl --HEAD
-          brew install -v deus0ww/tap/ffmpeg --HEAD  
-          brew install -v deus0ww/tap/mpv --HEAD 
+          brew update
+          brew install -v deus0ww/tap/libplacebo --HEAD
+          brew install -v deus0ww/tap/ffmpeg --HEAD
+          brew install -v deus0ww/tap/mpv --HEAD
       
       - name: Get current timestamp
         id: timestamp
@@ -47,7 +44,7 @@ jobs:
           curl -OL https://github.com/eko5624/mpv-config/archive/refs/heads/main.zip
           unzip main.zip
           mv mpv-config-main/macos_config All-in-One          
-          mv /usr/local/Cellar/mpv/HEAD*/mpv.app All-in-One  
+          mv /usr/local/Cellar/**/mpv.app All-in-One 
           zip -r All-in-One-${{ steps.timestamp.outputs.date }}.zip All-in-One 
 
       - name: Create Release      
