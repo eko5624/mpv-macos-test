@@ -26,11 +26,16 @@ jobs:
             
       - name: Add SHORT_SHA env 
         run: echo "SHORT_SHA=`echo ${{ env.sha }}| cut -c1-7`" >> $GITHUB_ENV             
+
+      - name: Remove stray upstream python binary symlinks under /usr/local
+        run: |
+          find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete -print
+          brew unlink python && brew link --overwrite python     
           
       - name: Build mpv
         run: |        
           brew update
-          brew install meson
+          brew install Java meson ninja python 
           brew install -v deus0ww/tap/libplacebo --HEAD
           brew install -v deus0ww/tap/ffmpeg --HEAD
           brew install -v deus0ww/tap/mpv --HEAD
