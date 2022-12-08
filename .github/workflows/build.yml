@@ -66,13 +66,13 @@ jobs:
           curl -OL https://github.com/eko5624/mpv-config/archive/refs/heads/main.zip
           unzip main.zip
           mv mpv-config-main/macos_config All-in-One          
-          mv /usr/local/Cellar/**/mpv.app All-in-One 
+          mv /usr/local/Cellar/mpv/HEAD*/mpv.app All-in-One 
           zip -r All-in-One-${{ steps.timestamp.outputs.date }}.zip All-in-One 
 
       - name: Create Release      
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@master
         with:
-          tag_name: mpv-${{ env.SHORT_SHA }}
+          tag_name: ${{ steps.timestamp.outputs.date }}
           name: ${{ steps.timestamp.outputs.date }}
           body: Bump to mpv-player/mpv@${{ env.SHORT_SHA }}
           files: All*.zip
