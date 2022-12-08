@@ -32,16 +32,16 @@ jobs:
           find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete -print
           brew unlink python && brew link --overwrite python
           
-      - name: set up JDK 
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
+      #- name: set up JDK 
+      #  uses: actions/setup-java@v3
+      #  with:
+      #    java-version: '17'
+      #    distribution: 'temurin'
           
-      #- name: Install dependencies
-      #  run: |        
-      #    brew update
-      #    brew install meson ninja python
+      - name: Install dependencies
+        run: |        
+          brew update
+          brew install meson ninja python
 
       - name: fix java include does not exist
         run: |
