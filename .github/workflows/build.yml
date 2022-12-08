@@ -47,7 +47,7 @@ jobs:
         run: |
           echo $JAVA_HOME_17_X64
           sudo mkdir -p /Library/Java/JavaVirtualMachines/Current/Contents/Home
-          sudo ln -s ${JAVA_HOME_17_X64} /Library/Java/JavaVirtualMachines/Current/Contents/Home/
+          cp -r ${JAVA_HOME_17_X64}* /Library/Java/JavaVirtualMachines/Current/Contents/Home
 
       - name: Build mpv
         run: |
