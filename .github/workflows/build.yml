@@ -51,6 +51,7 @@ jobs:
 
       - name: Build mpv
         run: |
+          brew install -v deus0ww/tap/libass --HEAD
           brew install -v deus0ww/tap/libplacebo --HEAD
           brew install -v deus0ww/tap/ffmpeg --HEAD
           brew install -v deus0ww/tap/mpv --HEAD
