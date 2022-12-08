@@ -46,7 +46,7 @@ jobs:
       - name: fix java include does not exist
         run: |
           echo $JAVA_HOME_17_X64
-          ls ${JAVA_HOME_17_X64}darwin
+          ls ${JAVA_HOME_17_X64}include/darwin
           sudo ln -s ${JAVA_HOME_17_X64}include /Library/Java/JavaVirtualMachines/Current/Contents/Home/include
           sudo ln -s ${JAVA_HOME_17_X64}include/darwin /Library/Java/JavaVirtualMachines/Current/Contents/Home/include/darwin
           sudo ln -s ${JAVA_HOME_17_X64}lib /Library/Java/JavaVirtualMachines/Current/Contents/Home/lib
