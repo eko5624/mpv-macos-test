@@ -32,12 +32,6 @@ jobs:
           find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete -print
           brew unlink python && brew link --overwrite python
           
-      #- name: set up JDK 
-      #  uses: actions/setup-java@v3
-      #  with:
-      #    java-version: '17'
-      #    distribution: 'temurin'
-          
       - name: Install dependencies
         run: |        
           brew update
@@ -60,7 +54,7 @@ jobs:
           curl -OL https://github.com/eko5624/mpv-config/archive/refs/heads/main.zip
           unzip main.zip
           mv mpv-config-main/macos_config All-in-One          
-          mv /usr/local/Cellar/mpv/HEAD*/mpv.app All-in-One 
+          mv **/mpv.app All-in-One 
           zip -r All-in-One-${{ steps.timestamp.outputs.date }}.zip All-in-One 
 
       - name: Create Release      
