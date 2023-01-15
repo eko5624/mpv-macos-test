@@ -55,7 +55,6 @@ jobs:
           unzip main.zip
           mv mpv-config-main/macos_config All-in-One
           sudo find /usr -name "mpv.app" -exec cp -r {} All-in-One \;
-          #sudo find /usr -name "mpv.app" -print0 | xargs -0 -I {} cp -R {}
           zip -r All-in-One-${{ steps.timestamp.outputs.date }}.zip All-in-One 
 
       - name: Create Release      
