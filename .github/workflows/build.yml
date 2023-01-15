@@ -38,7 +38,7 @@ jobs:
         id: timestamp
         run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_OUTPUT      
       
-      - name: zip bundle
+      - name: Zip bundle
         run: |
           mkdir All-in-One
           curl -OL https://github.com/eko5624/mpv-config/archive/refs/heads/main.zip
