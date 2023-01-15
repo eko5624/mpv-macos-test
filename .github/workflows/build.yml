@@ -31,11 +31,6 @@ jobs:
         run: |
           find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete -print
           brew unlink python && brew link --overwrite python
-          
-      - name: Install dependencies
-        run: |        
-          brew update
-          brew install meson ninja python
 
       - name: Build mpv
         run: |
