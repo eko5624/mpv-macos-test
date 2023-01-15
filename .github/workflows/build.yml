@@ -53,7 +53,8 @@ jobs:
           mkdir All-in-One
           curl -OL https://github.com/eko5624/mpv-config/archive/refs/heads/main.zip
           unzip main.zip
-          mv mpv-config-main/macos_config All-in-One    
+          mv mpv-config-main/macos_config All-in-One
+          sudo ls /usr/local/Cellar/mpv/HEAD*
           sudo find /usr -type d -name "mpv.app" -exec mv {} All-in-One \;
           zip -r All-in-One-${{ steps.timestamp.outputs.date }}.zip All-in-One 
 
