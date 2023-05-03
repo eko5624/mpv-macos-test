@@ -29,7 +29,10 @@ jobs:
 
       - name: Build mpv
         run: |
-          brew install -v deus0ww/tap/libass --HEAD
+          brew update 
+          brew uninstall --ignore-dependencies aom
+          brew uninstall --ignore-dependencies jpeg-xl 
+          brew tap deus0ww/tap
           brew install -v deus0ww/tap/libplacebo --HEAD
           brew install -v deus0ww/tap/ffmpeg --HEAD
           brew install -v deus0ww/tap/mpv --HEAD
