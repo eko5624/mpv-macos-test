@@ -68,13 +68,13 @@ jobs:
           unzip main.zip
           mv mpv-config-main/macos_config All-in-One
           sudo mv mpv/build All-in-One
-          zip -r -y All-in-One-${{ env.date }}.zip All-in-One/
+          zip -r -y All-in-One-${{ steps.timestamp.outputs.date }}.zip All-in-One/
 
       - name: Create Release
         uses: softprops/action-gh-release@master
         with:
-          tag_name: ${{ env.date }}
-          name: ${{ env.date }}
+          tag_name: ${{ steps.timestamp.outputs.date }}
+          name: ${{ steps.timestamp.outputs.date }}
           body: Bump to mpv-player/mpv@${{ env.sha }}
           files: All*.zip
         env:
