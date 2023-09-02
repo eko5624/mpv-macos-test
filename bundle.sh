@@ -39,6 +39,8 @@ done
 for f in "${all_deps[@]}"; do
   if [[ "$f" != "@loader_path"* ]]; then
     sudo cp $f $DIR/mpv/build/mpv.app/Contents/MacOS/lib
+  else
+    find `brew --prefix $(basename $f)` -name "$(basename $f)" -print0 | xargs -0 -I {} cp -f {} $DIR/mpv/build/mpv.app/Contents/MacOS/lib
   fi
 done
 
