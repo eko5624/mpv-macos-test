@@ -38,7 +38,11 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@main
-        
+
+      - name: Build mpv deps
+        run: |
+          brew install jpeg-turbo libarchive libdvdnav little-cms2 luajit-openresty mujs uchardet
+          
       - name: Build mpv
         run: |
           git clone https://github.com/mpv-player/mpv.git --branch master
