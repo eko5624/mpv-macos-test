@@ -17,7 +17,7 @@ for i in "${mpv_deps[@]}"; do
 done
 
 get_deps() {
-  local deps=$(otool -L $1 | grep -e '\t' | grep -Ev "\/usr\/lib|\/System|@rpath" | awk 'NR>1 {print $1}')
+  local deps=$(otool -L $1 | grep -e '\t' | grep -Ev "\/usr\/lib|\/System" | awk 'NR>1 {print $1}')
   for dep in $deps; do
     echo $dep
     get_deps $dep
@@ -37,10 +37,10 @@ for i in "${all_deps[@]}"; do
 done
 
 for f in "${all_deps[@]}"; do
-  if [[ "$f" != "@loader_path"* ]]; then
-    sudo cp $f $DIR/mpv/build/mpv.app/Contents/MacOS/lib
+  if [[ "$f" = "@loader_path"* ]] || [[ "$f" = "@rpath"* ]]; then
+    sudo find /usr/local -name "$(basename $f)" -print0 | xargs -0 -I {} cp -f {} $DIR/mpv/build/mpv.app/Contents/MacOS/lib
   else
-    sudo find /usr/local/Cellar -name "$(basename $f)" -print0 | xargs -0 -I {} cp -f {} $DIR/mpv/build/mpv.app/Contents/MacOS/lib
+    sudo cp $f $DIR/mpv/build/mpv.app/Contents/MacOS/lib
   fi
 done
 
