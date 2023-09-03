@@ -38,7 +38,7 @@ done
 
 for f in "${all_deps[@]}"; do
   if [[ "$f" = "@loader_path"* ]] || [[ "$f" = "@rpath"* ]]; then
-    sudo find /usr/local -name "$(basename $f)" -print0 | xargs -0 -I {} cp -f {} $DIR/mpv/build/mpv.app/Contents/MacOS/lib
+    find /usr/local -name "$(basename $f)" -print0 | xargs -0 -I {} sudo cp -f {} $DIR/mpv/build/mpv.app/Contents/MacOS/lib
   else
     sudo cp $f $DIR/mpv/build/mpv.app/Contents/MacOS/lib
   fi
