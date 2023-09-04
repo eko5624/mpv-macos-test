@@ -32,10 +32,10 @@ jobs:
           brew update 
           brew uninstall --ignore-dependencies aom
           brew uninstall --ignore-dependencies jpeg-xl 
-          brew tap deus0ww/tap
-          brew install -v deus0ww/tap/libmysofa --HEAD
-          brew install -v deus0ww/tap/libplacebo --HEAD
-          brew install -v deus0ww/tap/ffmpeg --HEAD
+          brew tap eko5624/tap
+          brew install -v eko5624/tap/libmysofa --HEAD
+          brew install -v eko5624/tap/libplacebo --HEAD
+          brew install -v eko5624/tap/ffmpeg --HEAD
 
       - name: Checkout
         uses: actions/checkout@main
