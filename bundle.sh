@@ -11,20 +11,20 @@ pushd $DIR/mpv/build/mpv.app/Contents/MacOS
 sudo ln -s mpv mpv-bundle
 popd
 
-mpv_deps=($(otool -L $DIR/mpv/build/mpv.app/Contents/MacOS/mpv | grep -e '\t' | grep -Ev "\/usr\/lib|\/System|@rpath" | awk '{ print $1 }'))
+mpv_deps=($(otool -L $DIR/mpv/build/mpv.app/Contents/MacOS/mpv | grep -e '\t' | grep -Ev "\/usr\/lib|\/System|@rpath" | awk '{ print $1 }' | xargs basename | sed 's#^#/usr/local/opt/#'))
 for i in "${mpv_deps[@]}"; do
   echo $i >> $DIR/mpv/build/mpv_deps.txt
 done
 
 get_deps() {
-  local deps=$(otool -L $1 | grep -e '\t' | grep -Ev "\/usr\/lib|\/System" | awk 'NR>1 {print $1}')
+  local deps=$(otool -L $1 | grep -e '\t' | grep -Ev "\/usr\/lib|\/System" | awk 'NR>1 {print $1}' | xargs basename | sed 's#^#/usr/local/opt/#')
   for dep in $deps; do
     echo $dep
     get_deps $dep
   done
 }
 
-first_libdeps=($(get_deps $(otool -L $DIR/mpv/build/mpv.app/Contents/MacOS/mpv | grep -e '\t' | grep -Ev "\/usr\/lib|\/System|@rpath" | awk 'NR==1 { print $1 }') | sort -u))
+first_libdeps=($(get_deps $(otool -L $DIR/mpv/build/mpv.app/Contents/MacOS/mpv | grep -e '\t' | grep -Ev "\/usr\/lib|\/System|@rpath" | awk 'NR==1 { print $1 }' | xargs basename | sed 's#^#/usr/lo/opt/#') | sort -u))
 others_libdeps=($(get_deps "$DIR/mpv/build/mpv.app/Contents/MacOS/mpv" | sort -u))
 libdeps=($(echo ${first_libdeps[@]} ${others_libdeps[@]} | tr ' ' '\n' | sort -u | tr '\n' ' '))
 for i in "${libdeps[@]}"; do
