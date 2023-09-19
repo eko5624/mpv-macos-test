@@ -12,20 +12,20 @@ pushd $DIR/mpv/build/mpv.app/Contents/MacOS
 sudo ln -s mpv mpv-bundle
 popd
 
-mpv_deps=($(otool -L $DIR/mpv/build/mpv.app/Contents/MacOS/mpv | grep -e '\t' | grep -Ev "\/usr\/lib|\/System|@rpath" | awk '{ print $1 }' | xargs basename | while read f; do find $DEP_PATH_PREFIX -name "$f"; done))
+mpv_deps=($(otool -L $DIR/mpv/build/mpv.app/Contents/MacOS/mpv | grep -e '\t' | grep -Ev "\/usr\/lib|\/System|@rpath" | awk '{ print $1 }' | xargs basename | grep -Ev "libluajit|libarchive" | sed 's#^#/usr/local/lib/#'))
 for i in "${mpv_deps[@]}"; do
   echo $i >> $DIR/mpv/build/mpv_deps.txt
 done
 
 get_deps() {
-  local deps=$(otool -L $1 | grep -e '\t' | grep -Ev "\/usr\/lib|\/System" | awk 'NR>1 {print $1}' | xargs basename | while read f; do find $DEP_PATH_PREFIX -name "$f"; done)
+  local deps=$(otool -L $1 | grep -e '\t' | grep -Ev "\/usr\/lib|\/System" | awk 'NR>1 {print $1}' | xargs basename | grep -Ev "libluajit|libarchive" | sed 's#^#/usr/local/lib/#')
   for dep in $deps; do
     echo $dep
     get_deps $dep
   done
 }
 
-first_libdeps=($(get_deps $(otool -L $DIR/mpv/build/mpv.app/Contents/MacOS/mpv | grep -e '\t' | grep -Ev "\/usr\/lib|\/System|@rpath" | awk 'NR==1 { print $1 }' | xargs basename | while read f; do find $DEP_PATH_PREFIX -name "$f"; done) | sort -u))
+first_libdeps=($(get_deps $(otool -L $DIR/mpv/build/mpv.app/Contents/MacOS/mpv | grep -e '\t' | grep -Ev "\/usr\/lib|\/System|@rpath" | awk 'NR==1 { print $1 }' | xargs basename | grep -Ev "libluajit|libarchive" | sed 's#^#/usr/local/lib/#') | sort -u))
 others_libdeps=($(get_deps "$DIR/mpv/build/mpv.app/Contents/MacOS/mpv" | sort -u))
 libdeps=($(echo ${first_libdeps[@]} ${others_libdeps[@]} | tr ' ' '\n' | sort -u | tr '\n' ' '))
 for i in "${libdeps[@]}"; do
@@ -37,6 +37,7 @@ for i in "${all_deps[@]}"; do
   echo $i >> $DIR/mpv/build/all_deps.txt
 done
 
+#copy all *.dylib to "mpv.app/Contents/MacOS/lib"
 for f in "${all_deps[@]}"; do
   if [[ "$f" = "@loader_path"* ]] || [[ "$f" = "@rpath"* ]]; then
     find /usr/local -name "$(basename $f)" -print0 | xargs -0 -I {} sudo cp -f {} $DIR/mpv/build/mpv.app/Contents/MacOS/lib
@@ -44,6 +45,8 @@ for f in "${all_deps[@]}"; do
     sudo cp $f $DIR/mpv/build/mpv.app/Contents/MacOS/lib
   fi
 done
+sudo cp `brew --prefix zlib`/lib/libz.1.dylib $DIR/mpv/build/mpv.app/Contents/MacOS/lib
+sudo cp `brew --prefix luajit-openresty`/lib/libluajit-5.1.2.dylib $DIR/mpv/build/mpv.app/Contents/MacOS/lib
 
 #removing rpath definitions towards dev tools
 rpaths=($(otool -l $DIR/mpv/build/mpv.app/Contents/MacOS/mpv | grep -A2 LC_RPATH | grep path | awk '{ print $2 }'))
